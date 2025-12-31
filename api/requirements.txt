@@ -1,0 +1,8 @@
+tensorflow==2.18.0
+tensorflow-intel==2.18.0
+fastapi
+uvicorn
+python-multipart
+pillow
+matplotlib
+tensorflow-serving-api==2.18.0
