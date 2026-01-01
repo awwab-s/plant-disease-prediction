@@ -109,7 +109,7 @@ import axios from "axios";
 import { Leaf, Upload, Loader2 } from "lucide-react";
 import bg from "./assets/bg5.jpg";
 
-const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
+const API_ENDPOINT = import.meta.env.VITE_API_PROD_ENDPOINT;
 
 export default function App() {
   const [image, setImage] = useState(null);
