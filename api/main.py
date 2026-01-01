@@ -1,13 +1,30 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 import uvicorn
 import numpy as np
 from io import BytesIO
 import tensorflow as tf
 from PIL import Image
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    app.state.model = tf.keras.models.load_model("../models/v1.keras")
+    print("✅ Model loaded successfully")
+    yield
 
-MODEL = tf.keras.models.load_model("../models/v1.keras")
+app = FastAPI(lifespan=lifespan)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+MODEL = None
+print("Model loaded successfully")
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
 @app.get("/ping")
@@ -26,7 +43,7 @@ async def predict(
   image = read_file_as_image(await file.read())
   img_batch = np.expand_dims(image, 0)
   
-  prediction = MODEL.predict(img_batch)
+  prediction = app.state.model.predict(img_batch)
   
   predicted_class = CLASS_NAMES[np.argmax(prediction[0])]
   confidence = np.max(prediction[0])
