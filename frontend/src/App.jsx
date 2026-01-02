@@ -65,14 +65,14 @@ export default function App() {
 
   return (
     <div
-      className="h-screen bg-cover bg-center flex items-center justify-center px-4 overflow-hidden"
+      className="h-screen bg-cover bg-center flex items-center justify-center px-4"
       style={{ backgroundImage: `url(${bg})` }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
 
       {/* Card */}
-      <div className="relative bg-white/30 backdrop-blur-xl rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] p-6 text-white">
+      <div className="relative bg-white/30 backdrop-blur-xl rounded-2xl shadow-xl max-w-md w-full p-6 text-white">
 
         {/* Header */}
         <div className="flex items-center gap-2 mb-6">
@@ -112,7 +112,7 @@ export default function App() {
           <img
             src={preview}
             alt="preview"
-            className="mt-4 rounded-xl w-full max-h-56 object-cover"
+            className="mt-4 rounded-xl w-full max-h-54 object-cover"
           />
         )}
 

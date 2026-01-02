@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Response
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 import uvicorn
@@ -30,9 +30,9 @@ MODEL = None
 print("Model loaded successfully")
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
-@app.get("/ping")
-async def ping():
-    return {"message": "hello!"}
+@app.api_route("/ping", methods=["GET", "HEAD"])
+def ping(response: Response):
+    return {"status": "ok"}
 
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
